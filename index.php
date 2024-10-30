@@ -1,56 +1,60 @@
 <?php
+session_start();
 include 'conexion.php';
-
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parcial Paradigmas</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <title>El Ahorcado</title>
+    <link rel="stylesheet" href="fg_css/fg_styles.css">
 </head>
 
 <body>
-    <header>
-        <h1>Parcial Paradigmas</h1>
-    </header>
+    <nav id="header_nav">
+        <ul>
+            <li><a href="index.php?modulo=fg_jugar">Jugar</a></li>
+            <li><a href="index.php?modulo=fg_registro">Registrar</a></li>
+            <li><a href="index.php?modulo=fg_login">Login</a></li>
+            <li><a href="index.php?modulo=fg_tabla_resul">Tablas</a></li>
+        </ul>
+    </nav>
+    
     <div class="container">
-        <aside>
-            <h2>Menú</h2>
-            <nav>
-                <ul>
-                    <li><a href="index.php?modulo=index">Enlace 1</a></li>
-                    <li><a href="index.php?modulo=cualquiermodulo">Enlace 2</a></li>
-                    <li><a href="index.php?modulo=cualquiermodulo">Enlace 3</a></li>
-                </ul>
-            </nav>
-        </aside>
+        <header>
+            <h1>El Ahorcado</h1>
+            <?php
+            if (!empty($_SESSION['nombre_usuario'])) {
+                echo '<h2>Bienvenido: ' . $_SESSION['nombre_usuario'] . '</h2>';
+                echo '' . $_SESSION['id'];
+                echo '<a href="index.php?modulo=fg_login&salir=true">Cerrar Sesión</a>';
+            }
+            ?>
+        </header>
+
         <main>
-            <h2>Contenido Principal</h2>
             <?php
             if (isset($_GET['modulo'])) {
                 $modulo = $_GET['modulo'];
             } else {
-                $modulo = 'index';
+                $modulo = 'index'; // Valor predeterminado
             }
 
-            $archivo = 'modulos/' . $modulo . '.php';
+            $archivo = 'fg_modulos/' . $modulo . '.php';
             if (file_exists($archivo)) {
                 include $archivo;
-            } else {
-                echo '<h2 style="color: red;">ERROR... no se encontro un modulo</h2>';
-            }
+            } 
             ?>
         </main>
+
     </div>
     <footer>
         <p>&copy; 2023 Parcial Paradigmas</p>
     </footer>
+    <script src="fg_js/fg_scripts.js"></script>
 
-    <script src="/js/scripts.js"></script>
 </body>
 
 </html>

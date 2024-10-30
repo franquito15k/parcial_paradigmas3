@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "parcial_paradigmas3";
+$dbname = "fg_parcial_paradigmas3";
 
 // Crear conexión
 $con = new mysqli($servername, $username, $password, $dbname);
